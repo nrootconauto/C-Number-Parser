@@ -3,5 +3,5 @@
 #include <stdint.h>
 signed long int numberParserParseInt(char* text,int* length);
 unsigned long int numberParserParseUInt(char* text,int* length);
-double numberParserDouble(char* text,int* length);
+double numberParserParseDouble(char* text,int* length);
 #endif

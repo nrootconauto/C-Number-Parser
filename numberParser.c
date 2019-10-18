@@ -36,6 +36,17 @@ unsigned long int numberParserParseUInt(char* text,int* length) {
 		len=getHexidecimalDigits(text+2);
 		sscanf(text+2,"%lx",&retVal);
 		offset=2;
+	} else if(0==strncmp (text,"0b",2)) {
+		offset=2;
+		unsigned long int value=0;
+		while(text[offset]=='0'||'1'==text[offset])
+			offset++;
+		int count=offset-1;
+		while(count!=2-1)
+			value|=(text[count--]-'0')<<((offset-count)-2);
+		if(length!=NULL)
+			*length=offset;
+		return value;
 	} else if(0==strncmp(text,"0",1)) {
 		len=getOctalDigits(text);
 		sscanf(text,"%lo",&retVal);
@@ -63,7 +74,7 @@ signed long int numberParserParseInt(char* text,int* length) {
 	return value;
 }
 typedef int(*digitGetter)(char*);
-double numberParserDouble(char* text,int* length) {
+double numberParserParseDouble(char* text,int* length) {
 	bool hexOrDex=false;
 	int offset=0;
 	digitGetter getter;
