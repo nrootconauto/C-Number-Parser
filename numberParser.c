@@ -81,8 +81,8 @@ double numberParserDouble(char* text,int* length) {
 		hasDot=true;
 		offset+=getter(text+offset);
 	}
-	char expUpper=(!hexOrDex)?'X':'P';
-	char expLower=(!hexOrDex)?'x':'p';
+	char expUpper=(!hexOrDex)?'e':'P';
+	char expLower=(!hexOrDex)?'e':'p';
 	bool hasExp=false;
 	if(expLower==text[offset]||expUpper==text[offset]) {
 		hasExp=true;
@@ -97,6 +97,7 @@ double numberParserDouble(char* text,int* length) {
 			*length=offset;
 		return NAN;
 	}
+	*length=offset;
 	double retVal;
 	sscanf(text,"%lf",&retVal);
 	return retVal;
